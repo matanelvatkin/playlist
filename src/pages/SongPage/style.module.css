@@ -1,0 +1,9 @@
+.song_page{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+}
