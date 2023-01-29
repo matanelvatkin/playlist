@@ -10,12 +10,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 import axios from "axios";
+import apiCalls from "../helpers/apiCalls";
 
 export const songsContext = createContext()
 export default function Layout() {
   const { user, setUser } = useContext(userContext);
   const [searchFilter, setSearchFilter] = useState("מאיר בנאי");
   const [songsList, setSongsList] = useState([]);
+  const [onClick, setOnClick] = useState(false);
+
   const options = {
     method: "GET",
     url: "https://simple-youtube-search.p.rapidapi.com/search",
@@ -39,14 +42,20 @@ export default function Layout() {
       });
   };
   useEffect(() => {
-    setUser(true);
+    const go = async()=>{
+      const results = await apiCalls("get","user")
+      console.log(results);
+      setUser(results.data);
+    }
+    if(localStorage.token && !user)go()
+    else if(!localStorage.token)setUser(false)
     if (user) {
       sendRequsetToYoutube();
     }
-  }, []);
+  },[]);
   useEffect(() => {
     sendRequsetToYoutube();
-  }, [searchFilter]);
+  }, [searchFilter,onClick]);
 
   return (
     <div className={style.layout}>
@@ -56,7 +65,7 @@ export default function Layout() {
       <div className={style.main}>
         <songsContext.Provider value={{songsList, setSongsList}}>
             <Routes>
-                <Route path="/*" element={user ? <HomePage/> : <LoginPage />} />
+                <Route path="/*" element={user ? <HomePage setOnClick={setOnClick}/> : <LoginPage />} />
             </Routes>
         </songsContext.Provider>
       </div>

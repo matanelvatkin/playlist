@@ -15,7 +15,6 @@
 .control_img{
     width: 40%;
     margin-right: 5%;
-    
 }
 .song_img{
     width: 100%;
@@ -24,4 +23,13 @@
 .details_control{
     width: 60%;
     height: 100%;
+}
+
+.add_like{
+    padding: 1%;
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
 }
