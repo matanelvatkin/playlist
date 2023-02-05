@@ -5,3 +5,19 @@
     align-content: center;
     justify-content: space-around;
 }
+
+.TbPlayerSkipBack:hover{
+transform: scale(1.1);
+}
+
+.TbPlayerPlay:hover{
+transform: scale(1.1);
+}
+
+.TbPlayerPause:hover{
+transform: scale(1.1);
+}
+
+.TbPlayerSkipForward:hover{
+transform: scale(1.1);
+}

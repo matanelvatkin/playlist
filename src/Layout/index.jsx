@@ -5,7 +5,7 @@ import HomePage from "../pages/HomePage";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import { useContext } from "react";
-import { userContext } from "../App";
+import { userContext, windowLocationContext } from "../App";
 import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
@@ -18,6 +18,8 @@ export default function Layout() {
   const [searchFilter, setSearchFilter] = useState("מאיר בנאי");
   const [songsList, setSongsList] = useState([]);
   const [onClick, setOnClick] = useState(false);
+  const {setWindowLocation} = useContext(windowLocationContext)
+
 
   const options = {
     method: "GET",
@@ -33,6 +35,7 @@ export default function Layout() {
       .request(options)
       .then((response) => {
         console.log(response.data.results);
+        setWindowLocation("home")
         setSongsList(response.data.results);
       })
       .catch((error) => {
@@ -44,10 +47,10 @@ export default function Layout() {
   useEffect(() => {
     const go = async()=>{
       const results = await apiCalls("get","user")
-      console.log(results);
+      console.log(results.data);
       setUser(results.data);
     }
-    if(localStorage.token && !user)go()
+    if(localStorage.token && (user === 'true' || !user))go()
     else if(!localStorage.token)setUser(false)
     if (user) {
       sendRequsetToYoutube();

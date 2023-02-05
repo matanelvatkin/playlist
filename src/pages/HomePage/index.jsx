@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Button from "../../components/Button";
 import NavBar from "../../components/NavBar";
+import Popupsong from "../../components/Popupsong";
 import apiCalls from "../../helpers/apiCalls";
 import FavoritePage from "../FavoritePage";
 import PlaylistPage from "../PlaylistPage";
@@ -10,11 +11,12 @@ import SongPage from "../SongPage";
 import style from "./style.module.css";
 
 export const addToPlaylistPopupContext = createContext();
-export const playerPopupContext = createContext();
+export const playerSongPopupContext = createContext();
 
 export default function HomePage({ setOnClick }) {
   const [addToPlaylistPopup, setAddToPlaylistPopup] = useState(false);
-  const [playerPopup, setPlayerPopup] = useState(false);
+  const [isOnPause, setIsOnPause] = useState(false);
+  const [playerSongPopup, setPlayerSongPopup] = useState({id:""});
   const [playlists, setPlaylists] = useState();
   useEffect(() => {
     const go = async () => {
@@ -37,9 +39,9 @@ export default function HomePage({ setOnClick }) {
     <addToPlaylistPopupContext.Provider
       value={{ addToPlaylistPopup, setAddToPlaylistPopup }}
     >
-      <playerPopupContext.Provider value={{ playerPopup, setPlayerPopup }}>
+      <playerSongPopupContext.Provider value={{ playerSongPopup, setPlayerSongPopup,isOnPause, setIsOnPause }}>
         <>
-          {addToPlaylistPopup && (
+          {addToPlaylistPopup  && (
             <div
               className={style.addToPlaylistPopup}
               onClick={() => {
@@ -68,12 +70,13 @@ export default function HomePage({ setOnClick }) {
                 <Route path="/*" element={<SongPage />} />
                 <Route path="/favorite" element={<FavoritePage/>} />
                 <Route path="/playlists" element={<PlaylistPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                {/* <Route path="/profile" element={<ProfilePage />} /> */}
               </Routes>
             </main>
+                {playerSongPopup.id !== "" &&<Popupsong/>}
           </div>
         </>
-      </playerPopupContext.Provider>
+      </playerSongPopupContext.Provider>
     </addToPlaylistPopupContext.Provider>
   );
 }

@@ -16,3 +16,7 @@
 .btn_nav_bar:active{
     font-size: larger;
 }
+
+.btn_nav_bar:hover{
+    font-weight: bold;
+}

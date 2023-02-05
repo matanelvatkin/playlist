@@ -1,0 +1,19 @@
+.popupsong{
+    position: absolute;
+    bottom: 0;
+}
+
+.video{
+    visibility: hidden;
+}
+
+.showVideo{
+    visibility: visible;
+}
+
+.video_button{
+    width:50px ;
+    height: 50px;
+    background-color:var( --bg-secondary-color);
+    color: var(--text-secondary-color);
+}
