@@ -30,6 +30,7 @@ export default function Header({ setSearchFilter }) {
   };
   const onClick = () => {
     setSearchFilter(searchInputRef.current.value);
+    searchInputRef.current.value = "";
   };
   return (
     <div className={style.main_header}>
@@ -39,10 +40,10 @@ export default function Header({ setSearchFilter }) {
             <img
               className={style.avatar}
               onClick={ChangeImage}
-              src={`http://localhost:5000${user.avatar}`}
+              src={`${user.avatar}`}
               alt="avatar"
             />
-            {user.fName} {user.lName}
+            {` ${user.fName} ${user.lName}`}
           </div>
           <div className={style.search}>
             <Input
@@ -51,11 +52,11 @@ export default function Header({ setSearchFilter }) {
               className={style.search_input}
               onKeyDown={onKeyDown}
             />
-            <TbSearch onClick={onClick} style={{ fontSize: "25px" }} />
+            <TbSearch className={style.search_logo} onClick={onClick} style={{ fontSize: "25px" }} />
           </div>
         </>
       ) : (
-        <>welcome</>
+        <><div></div></>
       )}
       <label className={style.logo}>
         <span>play</span>list

@@ -1,39 +1,53 @@
-.song_card{
-    margin: 1%;
-    padding: 1%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-content: center;
-    width: 30%;
-    height: 30%;
-    border-inline: solid 1px var(--input-color);
-    border-radius: 5%;
-    font-size: 16px;
+.song_card {
+  margin: 1%;
+  padding: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  width: 30%;
+  height: 160px;
+  border-radius: 5%;
+  font-size: 16px;
+  background-color: var(--bg-secondary-color);
+}
+.song_card:hover{
+    box-shadow: 2px 5px 8px 10px rgba(0,0,0,0.27);
 }
 
-.control_img{
-    width: 40%;
-    margin-right: 5%;
+.control_img {
+  width: 40%;
+  margin-right: 5%;
 }
-.song_img{
-    width: 100%;
-}
-
-.details_control{
-    width: 60%;
-    height: 100%;
+.song_img {
+  width: 100%;
 }
 
-.add_like{
-    padding: 1%;
-    width: 35%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+.details_control {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-overflow: clip;
+  overflow: hidden;
+}
+.song_text {
+  white-space: nowrap;
+}
+.add_like {
+  padding: 1%;
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.favoriteImage{
-color: var(--primary-color);
+.favoriteImage {
+  color: var(--primary-color);
+}
+
+.favoriteImage:hover {
+    transform: scale(1.3);
 }

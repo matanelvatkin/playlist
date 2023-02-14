@@ -1,9 +1,20 @@
+.main_song_page{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+}
+
 .song_page{
     width: 100%;
     height: max-content;
     display: flex;
-    direction: row;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     align-content: center;
+}
+
+.song_header{
+    color: var(--primary-color);
 }

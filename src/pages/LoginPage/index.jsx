@@ -6,7 +6,7 @@ import style from "./style.module.css";
 
 export default function LoginPage() {
   return (
-    <div>
+    <div className={style.loginPage}>
       <Routes>
         <Route path="/*" element={<Login/>} />
         <Route path="/register" element={<Register />} />

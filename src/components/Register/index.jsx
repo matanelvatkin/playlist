@@ -6,7 +6,7 @@ import Input from "../../components/Input";
 import apiCalls from "../../helpers/apiCalls";
 
 export default function Register() {
-  const [gender, setGender] = useState()
+  const [gender, setGender] = useState();
   const userfNameInput = useRef();
   const userlNameInput = useRef();
   const userEmailInput = useRef();
@@ -14,9 +14,9 @@ export default function Register() {
   const secondPassword = useRef();
   const navigate = useNavigate();
 
- const onChooseGender = (e)=>{
-  setGender(e.target.value);
- }
+  const onChooseGender = (e) => {
+    setGender(e.target.value);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = await apiCalls("post", "user/register", {
@@ -25,7 +25,7 @@ export default function Register() {
       email: userEmailInput.current.value,
       firstPassword: firstPassword.current.value,
       secondPassword: secondPassword.current.value,
-      gender:gender
+      gender: gender,
     });
     navigate("../login");
   };
@@ -33,7 +33,9 @@ export default function Register() {
   return (
     <div className={style.formLoginContainer}>
       <form className={style.formLogin} onSubmit={handleSubmit}>
+        <h2 className={style.header}>REGISTER</h2>
         <Input
+          className={style.inputLogin}
           type="text"
           name="fName"
           required={true}
@@ -41,6 +43,7 @@ export default function Register() {
           inputRef={userfNameInput}
         />
         <Input
+          className={style.inputLogin}
           type="text"
           name="lName"
           required={true}
@@ -48,6 +51,7 @@ export default function Register() {
           inputRef={userlNameInput}
         />
         <Input
+          className={style.inputLogin}
           type="email"
           name="input"
           required={true}
@@ -55,6 +59,7 @@ export default function Register() {
           inputRef={userEmailInput}
         />
         <Input
+          className={style.inputLogin}
           type="password"
           name="firstPassword"
           required={true}
@@ -62,27 +67,52 @@ export default function Register() {
           inputRef={firstPassword}
         />
         <Input
+          className={style.inputLogin}
           type="password"
           name="secondPassword"
           required={true}
           placeholder="secondPassword"
           inputRef={secondPassword}
         />
-        <label for="male">Male</label>
-        <Input type="radio" id="male" name="gender" onInput={onChooseGender} value="male" />
-        <label for="female">Female</label>
-        <Input type="radio" id="female" name="gender" onInput={onChooseGender} value="female" />
-
-        <Button className = {style.Button_submit} text="register" type={"submit"}/>
-
-        <p
-          onClick={() => {
-            navigate("/login");
-          }}
-          className={style.login}
-        >
-          login
-        </p>
+        <div className={style.radio_container}>
+          <label className={style.radio} htmlFor="male">
+            Male
+            {"  "}
+            <Input
+              type="radio"
+              id="male"
+              name="gender"
+              onInput={onChooseGender}
+              value="male"
+            />
+          </label>
+          <label className={style.radio} htmlFor="female">
+            Female
+            {"  "}
+            <Input
+              type="radio"
+              id="female"
+              name="gender"
+              onInput={onChooseGender}
+              value="female"
+            />
+          </label>
+        </div>
+        <div className={style.login_buttons}>
+          <Button
+            className={style.login_button}
+            text="register"
+            type="submit"
+          />
+          <Button
+            onClick={() => {
+              navigate("/login");
+            }}
+            className={style.login_button}
+            text="login"
+            type="text"
+          />
+        </div>
       </form>
     </div>
   );

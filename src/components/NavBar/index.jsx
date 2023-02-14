@@ -14,6 +14,7 @@ export default function NavBar({ setOnClick }) {
         className={style.btn_nav_bar}
         onClick={() => {
           setOnClick((prev) => !prev);
+          setWindowLocation(prev=> "home");
           navigate("/home");
         }}
         text="home"
@@ -34,14 +35,6 @@ export default function NavBar({ setOnClick }) {
         }}
         text="favorite songs"
       />
-      {/* <Button
-        className={style.btn_nav_bar}
-        onClick={() => {
-          setWindowLocation("profile");
-          navigate("/profile");
-        }}
-        text="profile"
-      /> */}
       <Button
         className={style.btn_nav_bar}
         onClick={() => {
@@ -51,9 +44,6 @@ export default function NavBar({ setOnClick }) {
         }}
         text="logOut"
       />
-      {/* //profile image
-      //name
-      //email */}
     </div>
-  );
+  )
 }

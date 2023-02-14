@@ -18,6 +18,7 @@ export default function SongCard({
   setIsOnPause,
   ...props
 }) {
+  const songText = song.title.split("-")
   const { user, setUser } = useContext(userContext);
   const { setAddToPlaylistPopup } = useContext(addToPlaylistPopupContext);
   const { windowLocation } = useContext(windowLocationContext);
@@ -61,12 +62,12 @@ export default function SongCard({
           <img className={style.song_img} src={song.image} />
           <div className={style.add_like}>
             {windowLocation !== "playlist" ? (
-              <BsPlusCircle onClick={() => setAddToPlaylistPopup(song)} />
+              <BsPlusCircle className={style.favoriteImage} onClick={() => setAddToPlaylistPopup(song)} />
             ) : (
-              <BiMinusCircle onClick={() => deleteSongFromPlaylist(song)} />
+              <BiMinusCircle className={style.favoriteImage} onClick={() => deleteSongFromPlaylist(song)} />
             )}
             {!isFavorited() && (
-              <BsHeart onClick={() => addSongToFavorite(song)} />
+              <BsHeart className={style.favoriteImage} onClick={() => addSongToFavorite(song)} />
             )}
             {isFavorited() && (
               <BsHeartFill className={style.favoriteImage}
@@ -77,9 +78,9 @@ export default function SongCard({
         </div>
         <div className={style.details_control}>
           <div className={style.details}>
-            <span>{song.title.split("-")[0]}</span>
+            <span className={style.song_text}>{songText[0]}</span>
             <br />
-            <span>{song.title.split("-")[1]}</span>
+            <span className={style.song_text}>{songText[1]}</span>
             <br />
             <span>{song.duration_formatted}</span>
           </div>

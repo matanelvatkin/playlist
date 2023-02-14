@@ -12,14 +12,25 @@ import { createContext } from "react";
 import axios from "axios";
 import apiCalls from "../helpers/apiCalls";
 
-export const songsContext = createContext()
+export const songsContext = createContext();
 export default function Layout() {
   const { user, setUser } = useContext(userContext);
   const [searchFilter, setSearchFilter] = useState("מאיר בנאי");
   const [songsList, setSongsList] = useState([]);
   const [onClick, setOnClick] = useState(false);
-  const {setWindowLocation} = useContext(windowLocationContext)
+  const { windowLocation, setWindowLocation } = useContext(
+    windowLocationContext
+  );
 
+  const getFavoriteFilter = () => {
+    const results = [];
+    if (user.favoritesSongs.length > 0) {
+      user.favoritesSongs.forEach((song) => {
+        if(song.song.title.startsWith(searchFilter)) results.push(song.song)
+      });
+    }
+    setSongsList(results);
+  };
 
   const options = {
     method: "GET",
@@ -35,7 +46,7 @@ export default function Layout() {
       .request(options)
       .then((response) => {
         console.log(response.data.results);
-        setWindowLocation("home")
+        setWindowLocation("home");
         setSongsList(response.data.results);
       })
       .catch((error) => {
@@ -45,31 +56,37 @@ export default function Layout() {
       });
   };
   useEffect(() => {
-    const go = async()=>{
-      const results = await apiCalls("get","user")
+    const go = async () => {
+      const results = await apiCalls("get", "user");
       console.log(results.data);
       setUser(results.data);
-    }
-    if(localStorage.token && (user === 'true' || !user))go()
-    else if(!localStorage.token)setUser(false)
+    };
+    if (localStorage.token && (user === "true" || !user)) go();
+    else if (!localStorage.token) setUser(false);
     if (user) {
       sendRequsetToYoutube();
     }
-  },[]);
+  }, []);
   useEffect(() => {
-    sendRequsetToYoutube();
-  }, [searchFilter,onClick]);
+    if (windowLocation === "favorite") getFavoriteFilter();
+    else sendRequsetToYoutube();
+  }, [searchFilter, onClick]);
 
   return (
     <div className={style.layout}>
       <header className={style.header}>
-        <Header setSearchFilter={setSearchFilter}/>
+        <Header setSearchFilter={setSearchFilter} />
       </header>
       <div className={style.main}>
-        <songsContext.Provider value={{songsList, setSongsList}}>
-            <Routes>
-                <Route path="/*" element={user ? <HomePage setOnClick={setOnClick}/> : <LoginPage />} />
-            </Routes>
+        <songsContext.Provider value={{ songsList, setSongsList }}>
+          <Routes>
+            <Route
+              path="/*"
+              element={
+                user ? <HomePage setOnClick={setOnClick} /> : <LoginPage />
+              }
+            />
+          </Routes>
         </songsContext.Provider>
       </div>
     </div>

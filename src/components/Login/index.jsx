@@ -8,21 +8,26 @@ import apiCalls from "../../helpers/apiCalls";
 import { userContext } from "../../App";
 
 function Login() {
-  const {setUser} =useContext(userContext)
-    const userEmailInput = useRef()
-    const userPasswordInput = useRef()
-    const navigate = useNavigate()
-  const handleSubmit =async(e)=>{
-      e.preventDefault();
-      const token = await apiCalls("post","user/login",{email:userEmailInput.current.value,password:userPasswordInput.current.value})
-      localStorage.token = token.data
-      setUser(true)
-      navigate("../home")
-    }
+  const { setUser } = useContext(userContext);
+  const userEmailInput = useRef();
+  const userPasswordInput = useRef();
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = await apiCalls("post", "user/login", {
+      email: userEmailInput.current.value,
+      password: userPasswordInput.current.value,
+    });
+    localStorage.token = token.data;
+    setUser(true);
+    navigate("../home");
+  };
   return (
     <div className={style.formLoginContainer}>
       <form className={style.formLogin} onSubmit={handleSubmit}>
+        <h2 className={style.header}>LOGIN</h2>
         <Input
+          className={style.inputLogin}
           type="email"
           name="input"
           placeholder="email"
@@ -30,22 +35,22 @@ function Login() {
           inputRef={userEmailInput}
         />
         <Input
+          className={style.inputLogin}
           type="password"
           name="input"
           placeholder="password"
           required={true}
           inputRef={userPasswordInput}
         />
-
-        <Button type={"submit"} width={"328px"} className={style.login_button} text="login"/>
-
-          <p
-            onClick={() => {
-              navigate("/register");
-            }}
-            className={style.register}
-          >register
-          </p>
+        <div className={style.login_buttons}>
+          <Button type="submit" className={style.login_button} text="login" />
+          <Button
+            type="text"
+            className={style.login_button}
+            text="register"
+            onClick={() => navigate("./register")}
+          />
+        </div>
       </form>
     </div>
   );
