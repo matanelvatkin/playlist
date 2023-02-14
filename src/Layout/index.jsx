@@ -45,7 +45,6 @@ export default function Layout() {
     axios
       .request(options)
       .then((response) => {
-        console.log(response.data.results);
         setWindowLocation("home");
         setSongsList(response.data.results);
       })
@@ -58,7 +57,6 @@ export default function Layout() {
   useEffect(() => {
     const go = async () => {
       const results = await apiCalls("get", "user");
-      console.log(results.data);
       setUser(results.data);
     };
     if (localStorage.token && (user === "true" || !user)) go();
