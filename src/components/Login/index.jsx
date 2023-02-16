@@ -14,12 +14,12 @@ function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = await apiCalls("post", "user/login", {
+    const data = await apiCalls("post", "user/login", {
       email: userEmailInput.current.value,
       password: userPasswordInput.current.value,
     });
-    localStorage.token = token.data;
-    setUser(true);
+    localStorage.token = data.data.token;
+    setUser(data.data.user);
     navigate("../home");
   };
   return (

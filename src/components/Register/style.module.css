@@ -16,6 +16,8 @@
     justify-content: center;
     align-items: center;
     background-color: var( --primary-color);
+    box-shadow: 2px 5px 8px 10px rgba(0, 0, 0, 0.484);
+    border-radius: 10%;
 }
 .header{
     margin-bottom: 5%;

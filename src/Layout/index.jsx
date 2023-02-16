@@ -69,7 +69,7 @@ export default function Layout() {
     if (windowLocation === "favorite") getFavoriteFilter();
     else sendRequsetToYoutube();
   }, [searchFilter, onClick]);
-
+  
   return (
     <div className={style.layout}>
       <header className={style.header}>
