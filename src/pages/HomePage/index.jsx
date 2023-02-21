@@ -28,7 +28,7 @@ export default function HomePage({ setOnClick }) {
     go();
   }, [addToPlaylistPopup]);
   const addSongToPlaylists = async (playlist) => {
-    const results = await apiCalls("put", "playlist/song", {
+    await apiCalls("put", "playlist/song", {
       id: addToPlaylistPopup.id,
       title: addToPlaylistPopup.title,
       duration_formatted: addToPlaylistPopup.duration_formatted,
@@ -60,10 +60,11 @@ export default function HomePage({ setOnClick }) {
                       onClick={() => addSongToPlaylists(playlist)}
                       key={playlist._id}
                     >
-                      <Button
+                      <label
                         className={style.playlist_name}
-                        text={playlist.name}
-                      />
+                        >
+                        {playlist.name}
+                        </label>
                       <BsPlusCircle className={style.playlist_button} />
                     </div>
                   ))}
