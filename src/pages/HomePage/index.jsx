@@ -17,9 +17,9 @@ export const playerSongPopupContext = createContext();
 export default function HomePage({ setOnClick }) {
   const [addToPlaylistPopup, setAddToPlaylistPopup] = useState(false);
   const [isOnPause, setIsOnPause] = useState(false);
-  const [playerSongPopup, setPlayerSongPopup] = useState({id:""});
+  const [playerSongPopup, setPlayerSongPopup] = useState({ id: "" });
   const [playlists, setPlaylists] = useState();
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const go = async () => {
       const res = await apiCalls("get", "user/playlists", undefined);
@@ -41,9 +41,11 @@ export default function HomePage({ setOnClick }) {
     <addToPlaylistPopupContext.Provider
       value={{ addToPlaylistPopup, setAddToPlaylistPopup }}
     >
-      <playerSongPopupContext.Provider value={{ playerSongPopup, setPlayerSongPopup,isOnPause, setIsOnPause }}>
+      <playerSongPopupContext.Provider
+        value={{ playerSongPopup, setPlayerSongPopup, isOnPause, setIsOnPause }}
+      >
         <>
-          {addToPlaylistPopup  && (
+          {addToPlaylistPopup && (
             <div
               className={style.addToPlaylistPopup}
               onClick={() => {
@@ -51,18 +53,27 @@ export default function HomePage({ setOnClick }) {
               }}
             >
               <div className={style.showPlaylists}>
-                  {playlists &&
-                    playlists.map((playlist) => (
-                      <div className={style.playlistsList} key={playlist._id}>
-                        <Button
-                          className={style.playlist_name}
-                          text={playlist.name}
-                          onClick={() => addSongToPlaylists(playlist)}
-                          />
-                          <BsPlusCircle  className={style.playlist_button}/>
-                        </div>
-                    ))}
-                <Button className={style.add_playlist} text={"add new playlist"} onClick={()=>{navigate("./playlists")}}/>
+                {playlists &&
+                  playlists.map((playlist) => (
+                    <div
+                      className={style.playlistsList}
+                      onClick={() => addSongToPlaylists(playlist)}
+                      key={playlist._id}
+                    >
+                      <Button
+                        className={style.playlist_name}
+                        text={playlist.name}
+                      />
+                      <BsPlusCircle className={style.playlist_button} />
+                    </div>
+                  ))}
+                <Button
+                  className={style.add_playlist}
+                  text={"add new playlist"}
+                  onClick={() => {
+                    navigate("./playlists");
+                  }}
+                />
               </div>
             </div>
           )}
@@ -73,12 +84,12 @@ export default function HomePage({ setOnClick }) {
             <main className={style.main_page}>
               <Routes>
                 <Route path="/*" element={<SongPage />} />
-                <Route path="/favorite" element={<FavoritePage/>} />
+                <Route path="/favorite" element={<FavoritePage />} />
                 <Route path="/playlists" element={<PlaylistPage />} />
                 {/* <Route path="/profile" element={<ProfilePage />} /> */}
               </Routes>
             </main>
-                {playerSongPopup.id !== "" &&<Popupsong/>}
+            {playerSongPopup.id !== "" && <Popupsong />}
           </div>
         </>
       </playerSongPopupContext.Provider>
