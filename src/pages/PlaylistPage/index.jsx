@@ -45,6 +45,7 @@ export default function PlaylistPage() {
   const getPlaylistSongs = async (_id, name) => {
     const res = await apiCalls("get", `playlist/${_id}`, undefined);
     sessionStorage.setItem("playlist_id", _id);
+    console.log(res.data.songs);
     setSongsList(res.data.songs.map((song) => song.song));
     navigate("../songs");
   };
@@ -58,35 +59,64 @@ export default function PlaylistPage() {
   };
   return (
     <>
-    <h2 className={style.playlist_title}><span className={style.playlist_header}>play</span>lists</h2>
-      <div className={style.playlistContainer} onClick={()=>{setDeletePlaylists(false)}}>
+      <h2 className={style.playlist_title}>
+        <span className={style.playlist_header}>play</span>lists
+      </h2>
+      <div
+        className={style.playlistContainer}
+        onClick={() => {
+          setDeletePlaylists(false);
+        }}
+      >
         {playlists &&
           playlists.map((playlist) => (
-            <div className={style.playlist_card} onClick={()=>{!deletePlaylists&&getPlaylistSongs(playlist._id,playlist.name)}} key={playlist._id}>
+            <div
+              className={style.playlist_card}
+              onClick={() => {
+                if(!deletePlaylists) return getPlaylistSongs(playlist._id, playlist.name)
+              }}
+              key={playlist._id}
+            >
               {playlist.isActive && (
                 <PlayListCard
-                name={playlist.name}
-                _id={playlist._id}
+                  // onClick={getPlaylistSongs}
+                  name={playlist.name}
+                  _id={playlist._id}
                 />
-                )}
-              {!deletePlaylists?<RiPlayListFill className={style.playlist_icons}/>: (
-                <BiMinusCircle  className={style.playlist_icons} onClick={() => deletePlaylist(playlist._id)} />
-                )}
+              )}
+              {!deletePlaylists ? (
+                <RiPlayListFill className={style.playlist_icons} />
+              ) : (
+                <BiMinusCircle
+                  className={style.playlist_icons}
+                  onClick={() => deletePlaylist(playlist._id)}
+                />
+              )}
             </div>
           ))}
       </div>
       <div className={style.control_button}>
-      <BsPlusCircle className={`${style.playlist_icons} ${style.plus_icon}`} onClick={createNewPlaylist} />
-      <BiMinusCircle className={style.playlist_icons} onClick={() => setDeletePlaylists(true)} />
+        <BsPlusCircle
+          className={`${style.playlist_icons} ${style.plus_icon}`}
+          onClick={createNewPlaylist}
+        />
+        <BiMinusCircle
+          className={style.playlist_icons}
+          onClick={() => setDeletePlaylists(true)}
+        />
       </div>
       {newPlaylist && (
         <div>
-          <Input className={style.playlist_input}
+          <Input
+            className={style.playlist_input}
             placeholder="playlist name"
             type="text"
             onKeyDown={onKeyDown}
-            />
-          <BsPlusCircle className={`${style.playlist_icons} ${style.plus_icon}`} onClick={onClick} /> 
+          />
+          <BsPlusCircle
+            className={`${style.playlist_icons} ${style.plus_icon}`}
+            onClick={onClick}
+          />
         </div>
       )}
     </>
