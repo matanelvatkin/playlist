@@ -56,6 +56,7 @@ export default function Layout() {
       });
   };
   useEffect(() => {
+    console.log(results.data);
     const go = async () => {
       const results = await apiCalls("get", "user");
       setUser(results.data);
