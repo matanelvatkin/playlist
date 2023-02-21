@@ -45,7 +45,6 @@ export default function PlaylistPage() {
   const getPlaylistSongs = async (_id, name) => {
     const res = await apiCalls("get", `playlist/${_id}`, undefined);
     sessionStorage.setItem("playlist_id", _id);
-    console.log(res.data.songs);
     setSongsList(res.data.songs.map((song) => song.song));
     navigate("../songs");
   };
@@ -79,7 +78,7 @@ export default function PlaylistPage() {
             >
               {playlist.isActive && (
                 <PlayListCard
-                  // onClick={getPlaylistSongs}
+                  onClick={getPlaylistSongs}
                   name={playlist.name}
                   _id={playlist._id}
                 />
