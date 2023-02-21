@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { BsPlusCircle } from "react-icons/bs";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import NavBar from "../../components/NavBar";
 import Popupsong from "../../components/Popupsong";
@@ -18,6 +19,7 @@ export default function HomePage({ setOnClick }) {
   const [isOnPause, setIsOnPause] = useState(false);
   const [playerSongPopup, setPlayerSongPopup] = useState({id:""});
   const [playlists, setPlaylists] = useState();
+  const navigate= useNavigate()
   useEffect(() => {
     const go = async () => {
       const res = await apiCalls("get", "user/playlists", undefined);
@@ -51,13 +53,16 @@ export default function HomePage({ setOnClick }) {
               <div className={style.showPlaylists}>
                   {playlists &&
                     playlists.map((playlist) => (
-                      <Button
-                        key={playlist._id}
-                        text={playlist.name}
-                        onClick={() => addSongToPlaylists(playlist)}
-                        className={style.playlistsList}
-                      />
+                      <div className={style.playlistsList} key={playlist._id}>
+                        <Button
+                          className={style.playlist_name}
+                          text={playlist.name}
+                          onClick={() => addSongToPlaylists(playlist)}
+                          />
+                          <BsPlusCircle  className={style.playlist_button}/>
+                        </div>
                     ))}
+                <Button className={style.add_playlist} text={"add new playlist"} onClick={()=>{navigate("./playlists")}}/>
               </div>
             </div>
           )}

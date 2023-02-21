@@ -1,19 +1,24 @@
 import React from "react";
 import { useContext } from "react";
-import { userContext } from "../../App";
+import { userContext, windowLocationContext } from "../../App";
 import Input from "../Input";
 import style from "./style.module.css";
 import { TbSearch } from "react-icons/tb";
-import { RiMenuUnfoldFill } from "react-icons/ri";
 import { useRef } from "react";
 import apiCalls from "../../helpers/apiCalls";
 
 export default function Header({ setSearchFilter }) {
   const { user, setUser } = useContext(userContext);
+  const {windowLocation} = useContext(windowLocationContext);
   const uploadRef = useRef();
   const searchInputRef = useRef();
-  const onKeyDown = (e) => {
+  const onInputChange=(e)=>{
     searchInputRef.current = e.target;
+    if(windowLocation==='favorite'){
+      setSearchFilter(searchInputRef.current.value);
+    }
+  }
+  const onKeyDown = (e) => {
     if (e.key === "Enter") {
       setSearchFilter(searchInputRef.current.value);
       searchInputRef.current.value = "";
@@ -50,6 +55,7 @@ export default function Header({ setSearchFilter }) {
               type="text"
               placeholder="search"
               className={style.search_input}
+              onInput ={onInputChange}
               onKeyDown={onKeyDown}
             />
             <TbSearch className={style.search_logo} onClick={onClick} style={{ fontSize: "25px" }} />

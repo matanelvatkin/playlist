@@ -45,6 +45,9 @@
     font-size: var(--font-size-label);
     border: none;
 }
+.login_button:hover{
+    transform: scale(1.3);
+}
 
 .radio_container{
     width: 70%;

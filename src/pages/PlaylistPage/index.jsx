@@ -62,11 +62,10 @@ export default function PlaylistPage() {
       <div className={style.playlistContainer} onClick={()=>{setDeletePlaylists(false)}}>
         {playlists &&
           playlists.map((playlist) => (
-            <div className={style.playlist_card} key={playlist._id}>
+            <div className={style.playlist_card} onClick={()=>{!deletePlaylists&&getPlaylistSongs(playlist._id,playlist.name)}} key={playlist._id}>
               {playlist.isActive && (
                 <PlayListCard
                 name={playlist.name}
-                onClick={getPlaylistSongs}
                 _id={playlist._id}
                 />
                 )}

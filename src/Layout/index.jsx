@@ -2,7 +2,7 @@ import React from "react";
 import style from "./style.module.css";
 import Header from "../components/Header";
 import HomePage from "../pages/HomePage";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import { useContext } from "react";
 import { userContext, windowLocationContext } from "../App";
@@ -14,6 +14,7 @@ import apiCalls from "../helpers/apiCalls";
 
 export const songsContext = createContext();
 export default function Layout() {
+  const navigate = useNavigate()
   const { user, setUser } = useContext(userContext);
   const [searchFilter, setSearchFilter] = useState("מאיר בנאי");
   const [songsList, setSongsList] = useState([]);
@@ -35,7 +36,7 @@ export default function Layout() {
   const options = {
     method: "GET",
     url: "https://simple-youtube-search.p.rapidapi.com/search",
-    params: { query: "" + searchFilter, safesearch: "false" },
+    params: { query: "" + searchFilter||"מאיר בנאי", safesearch: "false" },
     headers: {
       "X-RapidAPI-Key": "458302a80bmsh65f83ca14b6e60bp12d077jsnc759f59bdd86",
       "X-RapidAPI-Host": "simple-youtube-search.p.rapidapi.com",
@@ -59,8 +60,11 @@ export default function Layout() {
       const results = await apiCalls("get", "user");
       setUser(results.data);
     };
-    if (localStorage.token && (user === "true" || !user)) go();
-    else if (!localStorage.token) setUser(false);
+    if (!localStorage.token) {
+       setUser(false);
+       navigate("./login")
+    }
+    else if (localStorage.token && (user === "true" || !user)) go();
     if (user) {
       sendRequsetToYoutube();
     }
