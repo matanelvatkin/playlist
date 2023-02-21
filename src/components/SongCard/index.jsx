@@ -6,6 +6,7 @@ import { BiMinusCircle } from "react-icons/bi";
 import apiCalls from "../../helpers/apiCalls";
 import { userContext, windowLocationContext } from "../../App";
 import { addToPlaylistPopupContext } from "../../pages/HomePage";
+import { songsContext } from "../../Layout";
 
 export default function SongCard({
   onClickPlay,
@@ -18,6 +19,7 @@ export default function SongCard({
   setIsOnPause,
   ...props
 }) {
+  const { setSongsList } = useContext(songsContext);
   const songText = song.title.split("-")
   const { user, setUser } = useContext(userContext);
   const { setAddToPlaylistPopup } = useContext(addToPlaylistPopupContext);
