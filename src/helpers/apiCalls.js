@@ -4,7 +4,8 @@ import axios from "axios";
 axios.defaults.baseURL = "https://playlist-server.onrender.com/api/"
 
 const apiCalls = async (method, url, data) => {
-    axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`
+    axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
+    axios.defaults.headers={"Access-Control-Allow-Origin" : "https://playlist-client.onrender.com"}
     try {
         const res = await axios({
             method: method,
