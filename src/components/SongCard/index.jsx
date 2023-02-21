@@ -28,7 +28,7 @@ export default function SongCard({
       songId: song.id,
     });
     if (props.render) props.render((prev) => !prev);
-    setUser(res.data);
+    setSongsList(res.data.songs.map((song) => song.song));
   };
   const addSongToFavorite = async (song) => {
     const res = await apiCalls("put", "user/favorite", {
