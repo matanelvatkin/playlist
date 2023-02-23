@@ -21,3 +21,14 @@
 .btn_nav_bar:hover{
     font-weight: bold;
 }
+
+
+@media only screen and (max-width: 600px){
+    .nav_bar{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: normal;
+        border-top: none;
+    }   
+}

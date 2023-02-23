@@ -86,3 +86,91 @@
 .add_playlist:hover{
     transform: scale(1.2);
 }
+
+@media only screen and (max-width: 600px) {
+    .main{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .main_page{
+        width: 100%;
+        margin-top: 1%;
+    }
+    ::-webkit-scrollbar{
+        display: none;
+    }
+    
+    .nav_bar{
+        width:100%;
+        background-color: var(--bg-secondary-color);
+    }
+    
+    .addToPlaylistPopup{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(23, 23, 23,0.7);
+    }
+    
+    .showPlaylists{
+        width: 20%;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content:center ;
+        align-items: center;
+        overflow-y: scroll;
+        border: 5px solid var(--bg-color) ;
+        box-shadow: 2px 5px 8px 10px rgba(0,0,0,0.7);
+        background: var(--bg-color);
+        border-radius: 7%;
+    }
+    
+    .playlistsList{
+        width: 90%;
+        height: 45px;
+        margin: 2%;
+        padding: 1.5%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        font-size: var(--font-size-text);
+        color: var(--text-secondary-color);
+        background-color: var(--bg-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 20px;
+    }
+    .playlistsList:hover{
+        transform: scale(1.1);
+    }
+    
+    .playlist_name{
+        font-size: var(--font-size-text);
+        color: var(--text-secondary-color);
+        background-color: var(--bg-color);
+        border: none;
+    }
+    
+    .playlist_button{
+        color: var(--primary-color);
+    }
+    
+    .add_playlist{
+        margin-top: 7%;
+        font-size: var(--font-size-label);
+        color: var(--text-secondary-color);
+        background-color: var(--bg-color);
+        border: none
+    }
+    .add_playlist:hover{
+        transform: scale(1.2);
+    }
+    
+}

@@ -13,15 +13,27 @@ function Popupsong() {
   const { songsList } = useContext(songsContext);
   const youtubeRef = useRef();
   const opts = {
-    height: "390",
-    width: "640",
+    height: "200",
+    width: "350",
     playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay:isOnPause? 1:0
+      autoplay: isOnPause ? 1 : 0,
     },
   };
   const onReady = (e) => {
     youtubeRef.current = e.target;
+  };
+  const onEnd = () => {
+    if (playerSongPopup.index !== songsList.length - 1) {
+      setPlayerSongPopup((prev) => ({
+        id: songsList[playerSongPopup.index + 1].id,
+        index: playerSongPopup.index + 1,
+      }));
+    } else {
+      setPlayerSongPopup((prev) => ({
+        id: songsList[0].id,
+        index: 0,
+      }));
+    }
   };
   useEffect(() => {
     if (youtubeRef.current) {
@@ -40,6 +52,7 @@ function Popupsong() {
           videoId={playerSongPopup.id}
           opts={opts}
           onReady={onReady}
+          onEnd={onEnd}
         />
         <div className={style.song_button}>
           <Button
@@ -51,7 +64,7 @@ function Popupsong() {
           />
           <ControlSong
             onClickPlay={() => {}}
-            onClickPrev={() =>{
+            onClickPrev={() => {
               if (playerSongPopup.index !== 0) {
                 setPlayerSongPopup((prev) => ({
                   id: songsList[playerSongPopup.index - 1].id,
@@ -64,10 +77,10 @@ function Popupsong() {
                 }));
               }
             }}
-            onClickNext={() =>{
-              if (playerSongPopup.index !== songsList.length-1) {
+            onClickNext={() => {
+              if (playerSongPopup.index !== songsList.length - 1) {
                 setPlayerSongPopup((prev) => ({
-                  id: songsList[playerSongPopup.index  + 1].id,
+                  id: songsList[playerSongPopup.index + 1].id,
                   index: playerSongPopup.index + 1,
                 }));
               } else {
